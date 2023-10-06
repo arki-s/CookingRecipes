@@ -26,11 +26,10 @@ footer {
     @media (min-width: 768px) {
 
         h1 {
-            color:$main;
             margin-top: 10rem;
             margin-bottom:2rem;
             font-size: 96px;
-            text-shadow: 5px 5px 5px black;
+            text-shadow: 10px 3px 5px white;
             padding: 24px;
         }
     }
@@ -44,4 +43,19 @@ footer {
             padding: 24px;
         }
     }
+}
+
+.create-header {
+    margin:auto;
+    align-items:center;
+    text-align:center;
+    h1{
+        font-size:56px;
+        padding:12px;
+        color:$main;
+    }
+    a {
+        margin-bottom:24px;
+    }
+
 }
