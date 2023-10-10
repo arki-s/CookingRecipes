@@ -15,6 +15,7 @@ namespace CookingRecipes.Models
 
         [DataType(DataType.PhoneNumber)]
         [Required]
+        [Range(0, 1000)]
         public int Time { get; set; }
 
 
@@ -25,5 +26,7 @@ namespace CookingRecipes.Models
         [DataType(DataType.Text)]
         [Required]
         public string Directions { get; set; }
+
+        public ICollection<Review> Reviews { get; set; }
     }
 }
