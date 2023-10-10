@@ -52,7 +52,6 @@ footer {
     h1{
         font-size:56px;
         padding:12px;
-        color:$main;
     }
     a {
         margin-bottom:24px;
@@ -130,4 +129,8 @@ a:hover {
     transition:0.5s;
     color:green;
     text-decoration:none;
+}
+
+.form-group {
+    padding:6px;
 }
