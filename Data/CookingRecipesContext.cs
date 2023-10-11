@@ -15,5 +15,7 @@ namespace CookingRecipes.Data
         }
 
         public DbSet<CookingRecipes.Models.Recipe> Recipe { get; set; } = default!;
+
+        public DbSet<CookingRecipes.Models.Review>? Review { get; set; }
     }
 }

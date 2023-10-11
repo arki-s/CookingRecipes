@@ -14,9 +14,22 @@
 <p>@Html.DisplayFor(model => model.Directions)</p>
 
 <div>   
-    <a asp-action="Edit" asp-route-id="@Model?.Id"><i class="fa-solid fa-pen" style="color: #50e196; font-size:24px; margin-right:12px;"></i></a>
-    <a asp-action="Delete" asp-route-id="@Model?.Id"><i class="fa-solid fa-trash-can" style="color: #50e196; font-size:24px;"></i></a>
+    <a asp-action="Edit" asp-route-id="@Model?.RecipeId"><i class="fa-solid fa-pen" style="color: #50e196; font-size:24px; margin-right:12px;"></i></a>
+    <a asp-action="Delete" asp-route-id="@Model?.RecipeId"><i class="fa-solid fa-trash-can" style="color: #50e196; font-size:24px;"></i></a>
     <p></p>
+    @*  <ul>
+       @if (Model.Reviews.Count > 0)
+        {
+            @foreach (var item in Model.Reviews)
+            {
+                <li>
+                    @item.Date @item.Rating @item.Comment
+                </li>
+            }
+
+        } 
+        </ul>  *@
+
     <a asp-action="Index">Back to List</a>
 </div>
 </div>

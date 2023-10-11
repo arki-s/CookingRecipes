@@ -4,7 +4,7 @@ namespace CookingRecipes.Models
 {
     public class Recipe
     {
-        public int Id { get; set; }
+        public int RecipeId { get; set; }
         
         [DataType(DataType.Text)]
         [Required]

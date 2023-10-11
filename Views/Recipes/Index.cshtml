@@ -14,7 +14,7 @@
             @foreach (var item in Model)
             {
                 <div class="recipe-card">
-                <a asp-action="Details" asp-route-id="@item.Id" class="text-center">@Html.DisplayFor(modelItem => item.Name)</a>
+                <a asp-action="Details" asp-route-id="@item.RecipeId" class="text-center">@Html.DisplayFor(modelItem => item.Name)</a>
                     <p class="text-center fw-bold">Total Time: @Html.DisplayFor(modelItem => item.Time) m</p>
                     <p class="desc">@Html.DisplayFor(modelItem => item.Description)</p>
                 </div>
