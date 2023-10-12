@@ -30,12 +30,13 @@ namespace CookingRecipes.Controllers
         // GET: Recipes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            
             if (id == null || _context.Recipe == null)
             {
                 return NotFound();
             }
 
-            var recipe = await _context.Recipe
+            var recipe = await _context.Recipe.Include("Reviews")
                 .FirstOrDefaultAsync(m => m.RecipeId == id);
             if (recipe == null)
             {
@@ -43,7 +44,6 @@ namespace CookingRecipes.Controllers
             }
 
             return View(recipe);
-            //return View(await _context.Recipe.Include("Reviews").ToListAsync());
         }
 
         // GET: Recipes/Create
