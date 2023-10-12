@@ -7,6 +7,7 @@
 <div>
 <h1>Random import!</h1>
     <h4>Randomly displayed a recipe from <a href="https://oceans-nadia.com/">Nadia</a>. </h4>
+    <h4>If you like this recipe, please press import button!</h4>
 <div class="container-recipe">
 
     <h2>@Model.Name</h2>
@@ -21,5 +22,18 @@
 <p></p>
 <p class="fw-bold">Directions</p>
     <p>@Model.Directions</p>
-
+    <p></p>
+    <button id="import" class="btn btn-success">
+        Import!
+    </button>
 </div>
+
+<script>
+    const button = document.querySelector("#import");
+    console.log(button);
+    button.addEventListener("click", () => {
+        button.innerText = "Imported!";
+        button.classList.toggle("disabled");
+    })
+
+</script>
