@@ -4,10 +4,14 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div>
+
+</div>
+
+<h1>Reviews</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-success">Add New Review</a>
 </p>
 <table class="table">
     <thead>
@@ -34,7 +38,10 @@
                 @Html.DisplayFor(modelItem => item.Date)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Rating)
+                    @{
+                        string stars = new String('★', item.Rating);
+                    }
+                 @stars
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Comment)
@@ -43,9 +50,8 @@
                 @Html.DisplayFor(modelItem => item.Recipe.Name)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ReviewId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ReviewId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ReviewId">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.ReviewId"><i class="fa-solid fa-pen" style="color: #50e196; font-size:24px; margin-right:12px;"></i></a>
+                    <a asp-action="Delete" asp-route-id="@item.ReviewId"><i class="fa-solid fa-trash-can" style="color: #50e196; font-size:24px;"></i></a>
             </td>
         </tr>
 }

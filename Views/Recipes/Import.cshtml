@@ -20,20 +20,37 @@
     <p>@Model.Ingredients</p>
 
 <p></p>
-<p class="fw-bold">Directions</p>
-    <p>@Model.Directions</p>
-    <p></p>
-    <button id="import" class="btn btn-success">
-        Import!
-    </button>
+        <p class="fw-bold">Directions</p>
+        <p>@Model.Directions</p>
+        <form asp-action="Create" id="importform">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <input asp-for="Name" class="form-control" type="hidden" value="@Model.Name"/>
+                <span asp-validation-for="Name" class="text-danger"></span>
+
+                <input asp-for="Description" class="form-control" type="hidden" value="@Model.Description">
+                <span asp-validation-for="Description" class="text-danger"></span>
+
+                <input asp-for="Time" class="form-control" type="hidden" value="@Model.Time" />
+                <span asp-validation-for="Time" class="text-danger"></span>
+
+                <input asp-for="Ingredients" class="form-control" type="hidden" value="@Model.Ingredients">
+                <span asp-validation-for="Ingredients" class="text-danger"></span>
+
+                <input asp-for="Directions" class="form-control" type="hidden" value="@Model.Directions">
+                <span asp-validation-for="Directions" class="text-danger"></span>
+
+                <input type="submit" id="import" value="Import!" class="btn btn-success" />
+        </form>
 </div>
 
-<script>
-    const button = document.querySelector("#import");
-    console.log(button);
-    button.addEventListener("click", () => {
-        button.innerText = "Imported!";
-        button.classList.toggle("disabled");
-    })
+@* <script>
+        const button = document.querySelector("#import");
+        console.log(button);
+        button.addEventListener("click", () => {
+            button.innerText = "Imported!";
+            button.classList.toggle("disabled");
+            sleep(2000);
+        })
 
-</script>
+</script> *@

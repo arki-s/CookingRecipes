@@ -10,6 +10,7 @@ using CookingRecipes.Models;
 using HtmlAgilityPack;
 using System;
 using System.Net.Http;
+using CookingRecipes.Services;
 
 namespace CookingRecipes.Controllers
 {
@@ -17,11 +18,14 @@ namespace CookingRecipes.Controllers
     {
         private readonly CookingRecipesContext _context;
 
+        //public Import import;
+
         public RecipesController(CookingRecipesContext context)
         {
             _context = context;
         }
 
+        [HttpGet]
         public IActionResult Import()
         {
             string[] pages = new string[] {
@@ -60,10 +64,11 @@ namespace CookingRecipes.Controllers
             var directionsElement = htmlDocument.DocumentNode.SelectSingleNode("//ul[@class='CookingProcess_list__2KqPW']");
             var directions = directionsElement.InnerText.Trim();
 
-            var recipe = new Recipe() { Name = name, Description = description, Time = 30, Ingredients = ingredients, Directions = directions};
+            var recipe = new Recipe() { Name = name, Description = description, Time = 30, Ingredients = ingredients, Directions = directions };
 
             return View(recipe);
         }
+
 
         // GET: Recipes
         public async Task<IActionResult> Index()
@@ -110,6 +115,7 @@ namespace CookingRecipes.Controllers
             {
                 _context.Add(recipe);
                 await _context.SaveChangesAsync();
+                TempData["AlertMessage"] = "New recipe created successfully!";
                 return RedirectToAction(nameof(Index));
             }
             return View(recipe);
@@ -150,6 +156,7 @@ namespace CookingRecipes.Controllers
                 {
                     _context.Update(recipe);
                     await _context.SaveChangesAsync();
+                    TempData["AlertMessage"] = "Recipe updated successfully!";
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -198,6 +205,7 @@ namespace CookingRecipes.Controllers
             if (recipe != null)
             {
                 _context.Recipe.Remove(recipe);
+                TempData["AlertMessage"] = "Recipe deleted successfully!";
             }
             
             await _context.SaveChangesAsync();
