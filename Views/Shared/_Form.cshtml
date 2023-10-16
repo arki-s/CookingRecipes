@@ -1,0 +1,33 @@
+﻿@model CookingRecipes.Models.Review
+
+@{
+    
+}
+
+<form asp-controller="Reviews" asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    @{
+        DateTime date = DateTime.Now;
+    }
+    <input name="Date" class="form-control" type="hidden" value="@date.ToString()" />
+    <div class="form-group">
+        <label name="Rating" class="control-label">Rating</label>
+        <br>
+        <input name="Rating" type="radio" value="1" /> 1
+        <input name="Rating" type="radio" value="2" /> 2
+        <input name="Rating" type="radio" value="3" checked /> 3
+        <input name="Rating" type="radio" value="4" /> 4
+        <input name="Rating" type="radio" value="5" /> 5
+    </div>
+    <div class="form-group">
+        <label name="Comment" class="control-label">Comment</label>
+        <textarea name="Comment" class="form-control" placeholder="Write your comment here."></textarea>
+    </div>
+
+    <label name="RecipeId" class="control-label"></label>
+    <input name="RecipeId" class="form-control" type="hidden" value="@Model.Recipe.RecipeId">
+
+    <div class="form-group">
+        <input type="submit" value="Add Review" class="btn btn-success" />
+    </div>
+</form>

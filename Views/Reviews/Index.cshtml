@@ -4,9 +4,13 @@
     ViewData["Title"] = "Index";
 }
 
-<div>
-
-</div>
+@if (TempData["AlertMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissable fade show m-1" role="alert">
+        <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+        <strong> Success!</strong> @TempData["AlertMessage"]
+    </div>
+}
 
 <h1>Reviews</h1>
 

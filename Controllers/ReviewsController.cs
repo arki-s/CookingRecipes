@@ -64,6 +64,7 @@ namespace CookingRecipes.Controllers
             {
                 _context.Add(review);
                 await _context.SaveChangesAsync();
+                TempData["AlertMessage"] = "Your Review added successfully!";
                 return RedirectToAction(nameof(Index));
             }
             ViewData["RecipeId"] = new SelectList(_context.Recipe, "RecipeId", "Name", review.RecipeId);
@@ -106,6 +107,7 @@ namespace CookingRecipes.Controllers
                 {
                     _context.Update(review);
                     await _context.SaveChangesAsync();
+                    TempData["AlertMessage"] = "Review updated successfully!";
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -156,6 +158,7 @@ namespace CookingRecipes.Controllers
             if (review != null)
             {
                 _context.Review.Remove(review);
+                TempData["AlertMessage"] = "Review deleted successfully!";
             }
             
             await _context.SaveChangesAsync();

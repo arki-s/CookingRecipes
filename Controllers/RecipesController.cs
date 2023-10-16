@@ -11,6 +11,11 @@ using HtmlAgilityPack;
 using System;
 using System.Net.Http;
 using CookingRecipes.Services;
+using CookingRecipes.ViewModels;
+using Humanizer;
+using Microsoft.CodeAnalysis.CSharp;
+using CookingRecipes.Migrations;
+using Review = CookingRecipes.Models.Review;
 
 namespace CookingRecipes.Controllers
 {
@@ -81,7 +86,7 @@ namespace CookingRecipes.Controllers
         // GET: Recipes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            
+
             if (id == null || _context.Recipe == null)
             {
                 return NotFound();
@@ -94,10 +99,80 @@ namespace CookingRecipes.Controllers
                 return NotFound();
             }
 
-            return View(recipe);
+            var recipem = new Recipe()
+            {
+                RecipeId = recipe.RecipeId,
+                Name = recipe.Name,
+                Description = recipe.Description,
+                Time = recipe.Time,
+                Ingredients = recipe.Ingredients,
+                Directions = recipe.Directions
+            };
+
+            
+
+            var reviewList = new List<Review>();
+
+            if (recipe.Reviews.Count > 0)
+            {
+                foreach (var item in recipe.Reviews)
+                {
+                    reviewList.Add(new Review
+                    {
+                        ReviewId = item.ReviewId,
+                        Date = item.Date,
+                        Rating = item.Rating,
+                        Comment = item.Comment
+                    });
+                }               
+            }
+            var rereviewmodel = new ReReViewModel()
+            {
+                Recipe = recipem,
+                Review = reviewList,
+                Creview = new Review()
+
+            };
+
+            rereviewmodel.Creview.Date = DateTime.Today;
+
+            return View(rereviewmodel);
+
+
+                //if (id == null || _context.Recipe == null)
+                //{
+                //    return NotFound();
+                //}
+
+                //var recipe = await _context.Recipe.Include("Reviews")
+                //    .FirstOrDefaultAsync(m => m.RecipeId == id);
+                //if (recipe == null)
+                //{
+                //    return NotFound();
+                //}
+
+                //return View(recipe);
         }
 
         // GET: Recipes/Create
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Details(int? id, ReReViewModel model)
+        {
+
+            var rereview = new ReReViewModel();
+            rereview.Creview.Rating = model.Creview.Rating;
+            rereview.Creview.Date = model.Creview.Date;
+            rereview.Creview.Comment = model.Creview.Comment;
+            rereview.Creview.RecipeId = model.Creview.RecipeId; 
+
+            _context.Add(rereview);
+            await _context.SaveChangesAsync();
+            
+            return View(rereview);
+
+        }
         public IActionResult Create()
         {
             return View();

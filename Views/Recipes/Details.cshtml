@@ -1,28 +1,28 @@
-﻿@model CookingRecipes.Models.Recipe
+﻿@model CookingRecipes.ViewModels.ReReViewModel
 
 @{
     ViewData["Title"] = "Details";
 }
 
 <div class="container-recipe">
-<h1>@Html.DisplayFor(model => model.Name)</h1>
-<p>Total Time : @Html.DisplayFor(model => model.Time) m</p>
-<p style="font-size:24px;">@Html.DisplayFor(model => model.Description)</p>
-<p class="fw-bold">@Html.DisplayNameFor(model => model.Ingredients)</p>
-<p>@Html.DisplayFor(model => model.Ingredients)</p>
-<p class="fw-bold">@Html.DisplayNameFor(model => model.Directions)</p>
-<p>@Html.DisplayFor(model => model.Directions)</p>
+<h1>@Html.DisplayFor(model => model.Recipe.Name)</h1>
+<p>Total Time : @Html.DisplayFor(model => model.Recipe.Time) m</p>
+<p style="font-size:24px;">@Html.DisplayFor(model => model.Recipe.Description)</p>
+<p class="fw-bold">@Html.DisplayNameFor(model => model.Recipe.Ingredients)</p>
+<p>@Html.DisplayFor(model => model.Recipe.Ingredients)</p>
+<p class="fw-bold">@Html.DisplayNameFor(model => model.Recipe.Directions)</p>
+<p>@Html.DisplayFor(model => model.Recipe.Directions)</p>
 
 <div>   
-    <a asp-action="Edit" asp-route-id="@Model?.RecipeId"><i class="fa-solid fa-pen" style="color: #50e196; font-size:24px; margin-right:12px;"></i></a>
-    <a asp-action="Delete" asp-route-id="@Model?.RecipeId"><i class="fa-solid fa-trash-can" style="color: #50e196; font-size:24px;"></i></a>
+    <a asp-action="Edit" asp-route-id="@Model?.Recipe.RecipeId"><i class="fa-solid fa-pen" style="color: #50e196; font-size:24px; margin-right:12px;"></i></a>
+    <a asp-action="Delete" asp-route-id="@Model?.Recipe.RecipeId"><i class="fa-solid fa-trash-can" style="color: #50e196; font-size:24px;"></i></a>
     <p></p>
     <h3>Reviews</h3>
 
-       @if (Model.Reviews.Count > 0)
+       @if (Model.Review.Count > 0)
         {
             <ul>
-            @foreach (var item in Model.Reviews)
+            @foreach (var item in Model.Review)
             {
                     string stars = new String('★', item.Rating);
                     <li class="fw-bold">
@@ -36,8 +36,41 @@
         } else{
         <p>No Reviews.</p>                
     }
-        <a asp-controller="Reviews" asp-action="Create" class="btn btn-success">Add New Review</a>
-    @* <partial name="_ReviewForm"> *@
+    <p></p>
+    <h4>Add your Review!</h4>
+
+        @* @Html.Partial("_Form") *@
+
+        <form method="POST" action="">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @{
+                DateTime date = DateTime.Now;
+                Model.Creview.Date = date;
+            }
+            <input name="Date" class="form-control" type="hidden" value="@Model.Creview.Date" />
+            <div class="form-group">
+                <label name="Rating" class="control-label" value="@Model.Creview.Rating">Rating</label>
+                <br>
+                <input name="Rating" type="radio" value="1" /> 1
+                <input name="Rating" type="radio" value="2" /> 2
+                <input name="Rating" type="radio" value="3" checked /> 3
+                <input name="Rating" type="radio" value="4" /> 4
+                <input name="Rating" type="radio" value="5" /> 5
+            </div>
+            <div class="form-group">
+                <label name="Comment" class="control-label" value="@Model.Creview.Comment">Comment</label>
+                <textarea name="Comment" class="form-control" placeholder="Write your comment here."></textarea>
+             </div>
+
+                <label name="RecipeId" class="control-label" ></label>
+                <input name="RecipeId" class="form-control" type="hidden" value="@Model.Recipe.RecipeId">
+
+            <div class="form-group">
+                <input type="submit" value="Add Review" class="btn btn-success" />
+            </div>
+        </form>
+
+ @* <a asp-controller="Reviews" asp-action="Create" class="btn btn-success">Add New Review</a> *@
        
         <br>
         <br>
