@@ -13,10 +13,14 @@
     <p class="fw-bold">@Html.DisplayNameFor(model => model.Recipe.Directions)</p>
     <p>@Html.DisplayFor(model => model.Recipe.Directions)</p>
 
-    <div>
+    <div class="text-end">
         <a asp-action="Edit" asp-route-id="@Model?.Recipe.RecipeId"><i class="fa-solid fa-pen" style="color: #50e196; font-size:24px; margin-right:12px;"></i></a>
         <a asp-action="Delete" asp-route-id="@Model?.Recipe.RecipeId"><i class="fa-solid fa-trash-can" style="color: #50e196; font-size:24px;"></i></a>
         <p></p>
+    </div>
+     </div>
+    <div class="container-recipe">
+        <div class="p-3">
         <h3>Reviews</h3>
 
         @if (Model.Review.Count > 0)
@@ -38,7 +42,9 @@
         {
             <p>No Reviews.</p>
         }
+    </div>
         <p></p>
+        <div class="p-3">
         <h4>Add your Review!</h4>
 
         @* @Html.Partial("_Form") *@
@@ -66,9 +72,9 @@
                 <input type="submit" value="Add Review" class="btn btn-success" />
             </div>
         </form>
-
+    </div>
         <br>
-        <br>
+        <div class="text-center">
         <a asp-action="Index">Back to List</a>
     </div>
-</div>
+    </div>
