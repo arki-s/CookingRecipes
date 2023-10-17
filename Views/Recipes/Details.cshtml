@@ -5,48 +5,46 @@
 }
 
 <div class="container-recipe">
-<h1>@Html.DisplayFor(model => model.Recipe.Name)</h1>
-<p>Total Time : @Html.DisplayFor(model => model.Recipe.Time) m</p>
-<p style="font-size:24px;">@Html.DisplayFor(model => model.Recipe.Description)</p>
-<p class="fw-bold">@Html.DisplayNameFor(model => model.Recipe.Ingredients)</p>
-<p>@Html.DisplayFor(model => model.Recipe.Ingredients)</p>
-<p class="fw-bold">@Html.DisplayNameFor(model => model.Recipe.Directions)</p>
-<p>@Html.DisplayFor(model => model.Recipe.Directions)</p>
+    <h1>@Html.DisplayFor(model => model.Recipe.Name)</h1>
+    <p>Total Time : @Html.DisplayFor(model => model.Recipe.Time) m</p>
+    <p style="font-size:24px;">@Html.DisplayFor(model => model.Recipe.Description)</p>
+    <p class="fw-bold">@Html.DisplayNameFor(model => model.Recipe.Ingredients)</p>
+    <p>@Html.DisplayFor(model => model.Recipe.Ingredients)</p>
+    <p class="fw-bold">@Html.DisplayNameFor(model => model.Recipe.Directions)</p>
+    <p>@Html.DisplayFor(model => model.Recipe.Directions)</p>
 
-<div>   
-    <a asp-action="Edit" asp-route-id="@Model?.Recipe.RecipeId"><i class="fa-solid fa-pen" style="color: #50e196; font-size:24px; margin-right:12px;"></i></a>
-    <a asp-action="Delete" asp-route-id="@Model?.Recipe.RecipeId"><i class="fa-solid fa-trash-can" style="color: #50e196; font-size:24px;"></i></a>
-    <p></p>
-    <h3>Reviews</h3>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model?.Recipe.RecipeId"><i class="fa-solid fa-pen" style="color: #50e196; font-size:24px; margin-right:12px;"></i></a>
+        <a asp-action="Delete" asp-route-id="@Model?.Recipe.RecipeId"><i class="fa-solid fa-trash-can" style="color: #50e196; font-size:24px;"></i></a>
+        <p></p>
+        <h3>Reviews</h3>
 
-       @if (Model.Review.Count > 0)
+        @if (Model.Review.Count > 0)
         {
             <ul>
-            @foreach (var item in Model.Review)
-            {
+                @foreach (var item in Model.Review)
+                {
                     string stars = new String('★', item.Rating);
                     <li class="fw-bold">
                         @item.Date --
                         @stars --
                         @item.Comment
-                </li>
+                    </li>
                 }
             </ul>
 
-        } else{
-        <p>No Reviews.</p>                
-    }
-    <p></p>
-    <h4>Add your Review!</h4>
+        }
+        else
+        {
+            <p>No Reviews.</p>
+        }
+        <p></p>
+        <h4>Add your Review!</h4>
 
         @* @Html.Partial("_Form") *@
 
         <form method="POST" action="">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-@*             @{
-                DateTime date = DateTime.Now;
-            }
-            <input name="values" class="form-control" type="hidden" value="@date" /> *@
             <div class="form-group">
                 <label name="values" class="control-label">Rating</label>
                 <br>
@@ -59,20 +57,18 @@
             <div class="form-group">
                 <label name="Comment" class="control-label">Comment</label>
                 <textarea name="values" class="form-control" placeholder="Write your comment here."></textarea>
-             </div>
+            </div>
 
-                <label name="RecipeId" class="control-label" ></label>
-                <input name="values" class="form-control" type="hidden" value="@Model.Recipe.RecipeId">
+            <label name="RecipeId" class="control-label"></label>
+            <input name="values" class="form-control" type="hidden" value="@Model.Recipe.RecipeId">
 
             <div class="form-group">
                 <input type="submit" value="Add Review" class="btn btn-success" />
             </div>
         </form>
 
- @* <a asp-controller="Reviews" asp-action="Create" class="btn btn-success">Add New Review</a> *@
-       
         <br>
         <br>
-    <a asp-action="Index">Back to List</a>
-</div>
+        <a asp-action="Index">Back to List</a>
+    </div>
 </div>

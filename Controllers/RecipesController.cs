@@ -10,7 +10,6 @@ using CookingRecipes.Models;
 using HtmlAgilityPack;
 using System;
 using System.Net.Http;
-using CookingRecipes.Services;
 using CookingRecipes.ViewModels;
 using Humanizer;
 using Microsoft.CodeAnalysis.CSharp;
@@ -22,8 +21,6 @@ namespace CookingRecipes.Controllers
     public class RecipesController : Controller
     {
         private readonly CookingRecipesContext _context;
-
-        //public Import import;
 
         public RecipesController(CookingRecipesContext context)
         {
@@ -133,20 +130,6 @@ namespace CookingRecipes.Controllers
 
             return View(rereviewmodel);
 
-
-                //if (id == null || _context.Recipe == null)
-                //{
-                //    return NotFound();
-                //}
-
-                //var recipe = await _context.Recipe.Include("Reviews")
-                //    .FirstOrDefaultAsync(m => m.RecipeId == id);
-                //if (recipe == null)
-                //{
-                //    return NotFound();
-                //}
-
-                //return View(recipe);
         }
 
         // GET: Recipes/Create
