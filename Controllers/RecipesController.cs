@@ -109,8 +109,6 @@ namespace CookingRecipes.Controllers
                 Directions = recipe.Directions
             };
 
-            
-
             var reviewList = new List<Review>();
 
             if (recipe.Reviews.Count > 0)
@@ -131,10 +129,7 @@ namespace CookingRecipes.Controllers
                 Recipe = recipem,
                 Review = reviewList,
                 Creview = new Review()
-
             };
-
-            rereviewmodel.Creview.Date = DateTime.Today;
 
             return View(rereviewmodel);
 
@@ -158,19 +153,65 @@ namespace CookingRecipes.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Details(int? id, ReReViewModel model)
+        public async Task<IActionResult> Details(int? id,ReReViewModel model, string[] values)
         {
+            DateTime date = DateTime.Now;
 
-            var rereview = new ReReViewModel();
-            rereview.Creview.Rating = model.Creview.Rating;
-            rereview.Creview.Date = model.Creview.Date;
-            rereview.Creview.Comment = model.Creview.Comment;
-            rereview.Creview.RecipeId = model.Creview.RecipeId; 
+            var review = new Review() 
+            { 
+                Date = date,
+                Rating = int.Parse(values[0]),
+                Comment = values[1],
+                RecipeId = int.Parse(values[2])
+            };
 
-            _context.Add(rereview);
+            _context.Add(review);
             await _context.SaveChangesAsync();
-            
-            return View(rereview);
+
+
+            if (id == null || _context.Recipe == null)
+            {
+                return NotFound();
+            }
+
+            var recipe = await _context.Recipe.Include("Reviews")
+                .FirstOrDefaultAsync(m => m.RecipeId == id);
+            if (recipe == null)
+            {
+                return NotFound();
+            }
+
+            var recipem = new Recipe()
+            {
+                RecipeId = recipe.RecipeId,
+                Name = recipe.Name,
+                Description = recipe.Description,
+                Time = recipe.Time,
+                Ingredients = recipe.Ingredients,
+                Directions = recipe.Directions
+            };
+
+            var reviewList = new List<Review>();
+
+            if (recipe.Reviews.Count > 0)
+            {
+                foreach (var item in recipe.Reviews)
+                {
+                    reviewList.Add(new Review
+                    {
+                        ReviewId = item.ReviewId,
+                        Date = item.Date,
+                        Rating = item.Rating,
+                        Comment = item.Comment
+                    });
+                }
+            }
+
+            model.Recipe = recipem;
+            model.Review   = reviewList;
+            model.Creview = review;
+
+            return View(model);
 
         }
         public IActionResult Create()
